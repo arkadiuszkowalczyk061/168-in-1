@@ -1,0 +1,110 @@
+body{
+    background-image: url('/static/images/newbackground.jpg');
+
+}
+
+.containerBody{
+    background-image: url('/static/images/background.png');
+    height: 636px;
+    width: 1024px;
+    position: relative;
+    margin-top: 50px;
+    margin-left: 220px;
+}
+
+div.containerBody #cartridgeTransparent{
+    position: absolute;
+    left: 179px;
+    top: 63px;
+    filter: grayscale(10%) contrast(100%);
+}
+
+div.container{
+    background-image: url("/static/images/cartridge.jpg");
+    width: 956px;
+    height: 622px;
+    position: relative;
+    margin-left: 17% ;
+    margin-top: 3%;
+}
+
+
+div.container>a{
+    box-shadow: 0 0 4px 4px #e0e0eb;
+    border-radius: 4px;
+}
+
+
+div.container #tank{
+    position: absolute;
+    left: 688px;
+    top: 372px;
+}
+
+div.container #contra{
+    position: absolute;
+    left: 331px;
+    top: 220px;
+}
+
+div.container #warcraft{
+    position: absolute;
+    left: 491px;
+    top: 372px;
+}
+
+div.container #superMario{
+    position: absolute;
+    left: 645px;
+    top: 202px;
+}
+
+div.container #donkeyKong{
+    position: absolute;
+    left: 295px;
+    top: 372px;
+}
+
+div.container #spaceShit{
+    position: absolute;
+    left: 96px;
+    top: 202px;
+}
+
+div.container #pong{
+    position: absolute;
+    left: 96px;
+    top: 372px;
+}
+
+.gameplayViewer{
+    width: 480px;
+    height: 300px;
+    position: absolute;
+    display: block;
+    z-index: 500;
+    filter: none;
+
+}
+
+.gameplayViewer>img{
+    width: 100%;
+    height: 100%;
+}
+
+.returnImage{
+    padding-left: 0;
+    border: none;
+    position: relative;
+    z-index: 50;
+    display: block;
+    filter: grayscale(10%) saturate(50%) contrast(80%);
+}
+
+.highlightCartridge{
+    filter: brightness(1.2);
+}
+
+.cartridgeNormal{
+    filter: brightness(1);
+}

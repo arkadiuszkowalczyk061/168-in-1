@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static', filename='/script/script.js') }}" defer></script>
+</head>
+<body>
+
+    <div class="container">
+        <a class='returnImage' id="tank" href="{{ url_for('run_game') }}" data-gif="/static/images/tanks1990.gif" data-image="/static/images/tank1990.png"
+               data-height="-100.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/tank1990.png" height = '114' width = '185' alt="tanks"
+             ></a>
+
+        <a class='returnImage' id="contra" href="{{ url_for('run_game') }}" data-height="-100.5px" data-width="-110px"
+             data-gif='/static/images/contraGif.gif' data-image="/static/images/contraOldOne.png" data-height2="0" data-width2="0">
+            <img src="/static/images/contraOldOne.png" height="145" width="304" ></a>
+
+        <a class='returnImage' id="warcraft" href="{{ url_for('run_game') }}" data-gif="/static/images/warcraftGif.gif" data-image="/static/images/warcraft.jpeg"
+               data-height="-100.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/warcraft.jpeg" height="114" width="190"></a>
+
+        <a class='returnImage' id="superMario" href="{{ url_for('run_game') }}"data-gif="/static/images/marioGif.gif" data-image="/static/images/superMario.png"
+             data-height="-80.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/superMario.png" height="162" width="225"></a>
+
+        <a class='returnImage' id="donkeyKong" href="{{ url_for('run_game') }}" data-gif="/static/images/donkeyKong.gif" data-image="/static/images/donkeykong.png"
+            data-height="-100.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/donkeykong.png" height="114" width="190"></a>
+
+        <a class='returnImage' id="spaceShit" href="{{ url_for('run_game') }}" data-gif="/static/images/spaceShit.gif" data-image="/static/images/spaceShit2.png"
+             data-height="-80.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/spaceShit2.png" height="162" width="228"></a>
+
+        <a class='returnImage' id="pong" href="{{ url_for('run_game') }}" data-gif="/static/images/pong.gif" data-image="/static/images/pong.png"
+           data-height="-100.5px" data-width="-110px" data-height2="0" data-width2="0">
+            <img src="/static/images/pong.png" height="114" width="190"></a>
+    </div>
+
+</body>
+</html>
