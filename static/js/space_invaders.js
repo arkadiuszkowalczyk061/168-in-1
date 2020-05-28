@@ -8,7 +8,8 @@ const gameBoard = {
     gameHeight: 600,
     playerWidth: 20,
     playerMaxSpeed: 500,
-    missileMaxSpeed: 250
+    missileMaxSpeed: 250,
+    missileCooldown: 0.5
 }
 
 const gameState = {
@@ -18,6 +19,7 @@ const gameState = {
     shootPressed: false,
     playerX:0,
     playerY:0,
+    playerCooldown: 0,
     missiles: []
 };
 
@@ -59,10 +61,18 @@ function createMissile($container, x, y) {
 }
 
 
+function removeMissile($container, missile) {
+    $container.removeChild(missile.$element);
+    missile.isDead = true;
+
+}
+
+
 function init() {
     const $container = document.querySelector('.game');
     createPlayer($container);
 }
+
 
 
 // https://isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing wyczytałem, że generalnie gierka może chodzić różnie na innych komputerach w zależności od tego ile mogą wygenerować klatek i generalnie warto uzależniać to od czasu
@@ -78,15 +88,17 @@ function update() {
     window.requestAnimationFrame(update);
 }
 
+
 function updateMissiles(deltaTime, $container) {
     const missiles = gameState.missiles;
-    // missiles.forEach(missile => {
-    //     console.log(missile)
-    for (let i = 0; i<missiles.length; i++) {
-        const missile = missiles[i];
+    missiles.forEach(missile => {
         missile.y -= deltaTime * gameBoard.missileMaxSpeed;
+        if (missile.y < 0) {
+            removeMissile($container, missile);
+        }
         setPosition(missile.$element, missile.x, missile.y)
-    }
+        gameState.missiles = gameState.missiles.filter(event => !event.isDead)
+    });
 }
 
 function updatePlayer(deltaTime, $container) {
@@ -99,8 +111,13 @@ function updatePlayer(deltaTime, $container) {
 
     gameState.playerX = limitPlayer(gameState.playerX, gameBoard.playerWidth, gameBoard.gameWidth - gameBoard.playerWidth);
 
-    if(gameState.shootPressed) {
-        createMissile($container, gameState.playerX, gameState.playerY)
+    if(gameState.shootPressed && gameState.playerCooldown <= 0) {
+        createMissile($container, gameState.playerX, gameState.playerY);
+        gameState.playerCooldown = gameBoard.missileCooldown;
+    }
+
+    if(gameState.playerCooldown > 0) {
+        gameState.playerCooldown -= deltaTime;
     }
 
     const $player = document.querySelector('.player')
