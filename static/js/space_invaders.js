@@ -7,7 +7,8 @@ const gameBoard = {
     gameWidth: 800,
     gameHeight: 600,
     playerWidth: 20,
-    playerMaxSpeed: 500
+    playerMaxSpeed: 500,
+    missileMaxSpeed: 250
 }
 
 const gameState = {
@@ -17,6 +18,7 @@ const gameState = {
     shootPressed: false,
     playerX:0,
     playerY:0,
+    missiles: []
 };
 
 function setPosition($element, x, y) {
@@ -44,6 +46,19 @@ function createPlayer($container) {
     setPosition($player, gameState.playerX, gameState.playerY);
 }
 
+function createMissile($container, x, y) {
+    const $element = document.createElement("img");
+    $element.src = "/static/img/laser-blue-1.png";
+    $element.className = "missile";
+    $container.appendChild($element);
+    const missile = { x, y, $element };
+    gameState.missiles.push(missile);
+    setPosition($element, x, y);
+    const audio = new Audio('https://youtu.be/JmndxoF74qQ?t=47');
+    audio.play();
+}
+
+
 function init() {
     const $container = document.querySelector('.game');
     createPlayer($container);
@@ -55,13 +70,26 @@ function update() {
     const currentTime = Date.now();
     const deltaTime = (currentTime - gameState.lastTime) / 1000;
 
-    updatePlayer(deltaTime);
+    const $container = document.querySelector(".game")
+    updatePlayer(deltaTime, $container);
+    updateMissiles(deltaTime, $container)
 
     gameState.lastTime = currentTime;
     window.requestAnimationFrame(update);
 }
 
-function updatePlayer(deltaTime) {
+function updateMissiles(deltaTime, $container) {
+    const missiles = gameState.missiles;
+    // missiles.forEach(missile => {
+    //     console.log(missile)
+    for (let i = 0; i<missiles.length; i++) {
+        const missile = missiles[i];
+        missile.y -= deltaTime * gameBoard.missileMaxSpeed;
+        setPosition(missile.$element, missile.x, missile.y)
+    }
+}
+
+function updatePlayer(deltaTime, $container) {
     if (gameState.leftPressed) {
         gameState.playerX -= deltaTime * gameBoard.playerMaxSpeed;
     }
@@ -70,6 +98,10 @@ function updatePlayer(deltaTime) {
     }
 
     gameState.playerX = limitPlayer(gameState.playerX, gameBoard.playerWidth, gameBoard.gameWidth - gameBoard.playerWidth);
+
+    if(gameState.shootPressed) {
+        createMissile($container, gameState.playerX, gameState.playerY)
+    }
 
     const $player = document.querySelector('.player')
     setPosition($player, gameState.playerX, gameState.playerY)

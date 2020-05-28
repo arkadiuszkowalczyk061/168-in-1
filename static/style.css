@@ -69,7 +69,7 @@ footer {
   width: 40px;
 }
 
-.game .laser {
+.game .missile {
   position: absolute;
   margin-left: -2.5px;
   height: 30px;
