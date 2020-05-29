@@ -1,4 +1,3 @@
-
 //document.getElementById  id from html  exe: can
 
 const canv = document.querySelector('canvas');
@@ -30,7 +29,7 @@ let playerTwoY = 200;
 const lineWidth = 6;
 const lineHeight = 16;
 
-let ballSpeedX = 3;
+let ballSpeedX = -3;
 let ballSpeedY = 3;
 
 const accelerPaddle = 25;
@@ -70,11 +69,19 @@ function ball() {
         ballSpeedX = - ballSpeedX;
         velocity()
     }
+
+
     let ballPosition = { pilkaX : ballX, pilkaY : ballY,
         ballW : ballSize, ballH : ballSize
     }
 
     return ballPosition
+}
+function ballcollision() {
+    ballSpeedX = - ballSpeedX;
+}
+function ballcolisionJerzy() {
+    ballSpeedX = - ballSpeedX;
 }
 
 function table() {
@@ -134,9 +141,9 @@ canv.addEventListener("mousemove", playerPosition)
 
 
 function tableResult() {
-    let cos = 'Kurwinox Janusz'
+    let cos = ' Janusz'
     let wynik = 0
-    let play2 = 'Zdupydomordyzaur Jerzy'
+    let play2 = ' Jerzy'
     ctx.font = 'italic 18px Arial';
     ctx.fillStyle = 'white';
     ctx.fillText(cos + ' : ' + wynik, 25, 25);
@@ -144,8 +151,8 @@ function tableResult() {
 }
 
 
-function RectsColliding(r1,r2){
-    console.log(r1())
+function CollidingJanusz(r1,r2){
+
     return !(
     r1.JanuszX>r2.pilkaX+r2.ballW ||
     r1.JanuszX+r1.paddleW<r2.pilkaX ||
@@ -154,18 +161,29 @@ function RectsColliding(r1,r2){
     );
 
 }
+function CollidingJuras(r3,r2){
 
-
-function inGame() {
-    table()
-    ball()
-    player()
-    playerTwo()
-    tableResult()
-    RectsColliding(player, ball)
+    return !(
+    r3.JurasX>r2.pilkaX+r2.ballW ||
+    r3.JurasX+r3.paddleW<r2.pilkaX ||
+    r3.JurasY>r2.pilkaY+r2.ballH ||
+    r3.JurasY+r3.paddleH<r2.pilkaY
+    );
 
 }
 
+function inGame() {
+    table()
+    let r1 = player()
+    let r2 = ball()
+    let r3 =playerTwo()
+    tableResult()
+    if (CollidingJanusz(r1, r2) === true) {
+        ballcollision()
+    }
+    if (CollidingJuras(r3, r2) === true) {
+        ballcolisionJerzy()
+    }
+}
 
-
-setInterval(inGame,10)
+setInterval(inGame,16)
