@@ -21,5 +21,9 @@ def tetris():
     return render_template('tetris.html')
 
 
+@app.route('/really_tetris')
+def really_teris():
+    return  render_template('tet_tetris.html')
+
 if __name__ == '__main__':
     app.run()
